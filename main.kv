@@ -9,9 +9,76 @@ MDScreen:
             text: 'Stop Watch'
             icon: 'timer'
 
-            MDLabel:
-                text: 'Stop watch'
-                halign: 'center'
+            MDBoxLayout:
+                orientation: 'vertical'
+
+
+                MDLabel:
+                    text: '00:00:00'
+                    halign: 'center'
+                    theme_text_color: "Custom"
+                    text_color: 1, 1, 1, 1
+                    font_style: 'H2'
+
+                MDScrollView:
+                    MDList:
+                        id: count_list
+
+                        TwoLineIconListItem:
+                            text: "Count 3: 00:12:43"
+                            secondary_text: "00:05:43"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+                            secondary_theme_text_color: "Custom"
+                            secondary_text_color: 1, 1, 1, 1
+
+                            IconLeftWidget:
+                                icon: "av-timer"
+
+                        TwoLineIconListItem:
+                            text: "Count 2: 00:07:43"
+                            secondary_text: "00:04:43"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+                            secondary_theme_text_color: "Custom"
+                            secondary_text_color: 1, 1, 1, 1
+
+                            IconLeftWidget:
+                                icon: "av-timer"  
+
+                        TwoLineIconListItem:
+                            text: "Count 1: 00:03:43"
+                            secondary_text: "00:03:43"
+                            theme_text_color: "Custom"
+                            text_color: 1, 1, 1, 1
+                            secondary_theme_text_color: "Custom"
+                            secondary_text_color: 1, 1, 1, 1
+
+                            IconLeftWidget:
+                                icon: "av-timer" 
+
+
+                MDBoxLayout:
+                    orientation: 'horizontal'
+                    size_hint: .3, .5
+                    spacing: 50
+                    pos_hint: {'center_x': .5}
+
+                    MDIconButton:
+                        icon: 'undo-variant'
+                        pos_hint: {"center_x": .25}
+
+
+                    MDIconButton:
+                        icon: 'play'
+                        pos_hint: {"center_x": .5}
+
+
+                    MDIconButton:
+                        icon: 'timelapse'
+                        pos_hint: {"center_x": .75}
+
+
 
         MDBottomNavigationItem:
             name: 'screen 2'
