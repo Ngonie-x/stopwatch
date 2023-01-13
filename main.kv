@@ -58,25 +58,26 @@ MDScreen:
                                 icon: "av-timer" 
 
 
-                MDBoxLayout:
-                    orientation: 'horizontal'
-                    size_hint: .3, .5
-                    spacing: 50
+                MDFloatLayout:
                     pos_hint: {'center_x': .5}
+                    size_hint_y: .3
+                    size_hint_x: .5
+                    spacing: 50
+
 
                     MDIconButton:
                         icon: 'undo-variant'
-                        pos_hint: {"center_x": .25}
-
+                        pos_hint: {'center_x': .2}
 
                     MDIconButton:
                         icon: 'play'
-                        pos_hint: {"center_x": .5}
+                        pos_hint: {'center_x': .5}
 
 
                     MDIconButton:
                         icon: 'timelapse'
-                        pos_hint: {"center_x": .75}
+                        pos_hint: {'center_x': .8}
+
 
 
 
