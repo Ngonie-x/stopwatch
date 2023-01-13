@@ -1,9 +1,11 @@
 from kivymd.app import MDApp
 from kivy.properties import NumericProperty, StringProperty
 from kivy.clock import Clock
+from kivymd.uix.list import TwoLineIconListItem, IconLeftWidget
 
 
 class MainApp(MDApp):
+    count = 1
     watch_started = False
     stopwatch_time = StringProperty()
     milliseconds = NumericProperty()
@@ -36,10 +38,12 @@ class MainApp(MDApp):
         if self.watch_started:
             self.watch_started = False
             self.root.ids['record_lap_btn'].disabled = True
+            self.root.ids['play_pause_btn'].icon = 'play'
             self.root.ids['reset_btn'].disabled = False
             Clock.unschedule(self.get_string_time)
         else:
             self.watch_started = True
+            self.root.ids['play_pause_btn'].icon = 'pause'
             self.root.ids['record_lap_btn'].disabled = False
             Clock.schedule_interval(self.get_string_time, 0.01)
 
@@ -70,6 +74,24 @@ class MainApp(MDApp):
 
         self.root.ids['reset_btn'].disabled = True
         self.root.ids['record_lap_btn'].disabled = True
+
+    def time_lap(self):
+        lap_time = f"Count {self.count}: " + self.stopwatch_time
+        list_item = TwoLineIconListItem(
+            IconLeftWidget(
+                icon="av-timer"
+            ),
+            text=lap_time,
+            secondary_text="00:04:43",
+            theme_text_color="Custom",
+            text_color=(1, 1, 1, 1),
+            secondary_theme_text_color="Custom",
+            secondary_text_color=(1, 1, 1, 1)
+        )
+
+        self.root.ids['count_list'].add_widget(list_item, index=-1)
+
+        self.count += 1
 
     def on_start(self):
         self.stopwatch_time = "00:00:00"

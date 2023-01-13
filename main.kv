@@ -25,38 +25,6 @@ MDScreen:
                     MDList:
                         id: count_list
 
-                        TwoLineIconListItem:
-                            text: "Count 3: 00:12:43"
-                            secondary_text: "00:05:43"
-                            theme_text_color: "Custom"
-                            text_color: 1, 1, 1, 1
-                            secondary_theme_text_color: "Custom"
-                            secondary_text_color: 1, 1, 1, 1
-
-                            IconLeftWidget:
-                                icon: "av-timer"
-
-                        TwoLineIconListItem:
-                            text: "Count 2: 00:07:43"
-                            secondary_text: "00:04:43"
-                            theme_text_color: "Custom"
-                            text_color: 1, 1, 1, 1
-                            secondary_theme_text_color: "Custom"
-                            secondary_text_color: 1, 1, 1, 1
-
-                            IconLeftWidget:
-                                icon: "av-timer"  
-
-                        TwoLineIconListItem:
-                            text: "Count 1: 00:03:43"
-                            secondary_text: "00:03:43"
-                            theme_text_color: "Custom"
-                            text_color: 1, 1, 1, 1
-                            secondary_theme_text_color: "Custom"
-                            secondary_text_color: 1, 1, 1, 1
-
-                            IconLeftWidget:
-                                icon: "av-timer" 
 
 
                 MDFloatLayout:
@@ -85,6 +53,7 @@ MDScreen:
                         id: record_lap_btn
                         icon: 'timelapse'
                         pos_hint: {'center_x': .8}
+                        on_press: app.time_lap()
                         disabled: True
 
 
