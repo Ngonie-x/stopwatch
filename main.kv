@@ -14,7 +14,8 @@ MDScreen:
 
 
                 MDLabel:
-                    text: '00:00:00'
+                    id: stopwatch_lbl
+                    text: app.stopwatch_time
                     halign: 'center'
                     theme_text_color: "Custom"
                     text_color: 1, 1, 1, 1
@@ -66,17 +67,25 @@ MDScreen:
 
 
                     MDIconButton:
+                        id: reset_btn
                         icon: 'undo-variant'
                         pos_hint: {'center_x': .2}
+                        on_press: app.reset_stopwatch()
+                        disabled: True
+
 
                     MDIconButton:
+                        id: play_pause_btn
                         icon: 'play'
                         pos_hint: {'center_x': .5}
+                        on_press: app.start_or_stop_stopwatch()
 
 
                     MDIconButton:
+                        id: record_lap_btn
                         icon: 'timelapse'
                         pos_hint: {'center_x': .8}
+                        disabled: True
 
 
 
