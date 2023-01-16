@@ -78,9 +78,11 @@ class MainApp(MDApp):
         self.seconds = 0
         self.minutes = 0
 
+        # disable reset and lap buttons
         self.root.ids['reset_btn'].disabled = True
         self.root.ids['record_lap_btn'].disabled = True
 
+        # Reset lap time
         self.last_lap_time['minutes'] = 0
         self.last_lap_time['seconds'] = 0
         self.last_lap_time['milliseconds'] = 0

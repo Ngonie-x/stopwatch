@@ -64,8 +64,76 @@ MDScreen:
             text: 'Timer'
             icon: 'timer-sand'
 
-            MDLabel:
-                text: 'Timer'
-                halign: 'center'
+            MDBoxLayout:
+                orientation: 'vertical'
+
+                MDGridLayout:
+                    cols: 6
+                    size_hint_y: 1
+                    padding: 20
+                    spacing: 15
+
+                    MDTextFieldRect:
+                        size_hint: None, None
+                        height: "80dp"
+                        width: "80dp"
+                        multiline: False
+                        max_text_length: 2
+                        input_filter: "int"    
+                        font_size: "50dp"
+                        text: "00"
+                        halign:"center"
+
+                    MDLabel:
+                        text: 'h'
+                        size_hint: .35, None
+                        height: "30dp"
+                        halign:"center"
+
+
+                    MDTextFieldRect:
+                        size_hint: None, None
+                        height: "80dp"
+                        width: "80dp"
+                        multiline: False
+                        max_text_length: 2
+                        input_filter: "int"
+                        font_size: "50dp"
+                        text: "00"
+                        halign:"center"
+
+
+
+
+                    MDLabel:
+                        text: 'm'
+                        size_hint: .35, None
+                        height: "30dp"
+                        halign:"center"
+
+
+                    MDTextFieldRect:
+                        size_hint: None, None
+                        height: "80dp"
+                        width: "80dp"
+                        multiline: False
+                        max_text_length: 2
+                        input_filter: "int"
+                        font_size: "50dp"
+                        text: "00"
+                        halign:"center"
+
+
+                        
+
+                    MDLabel:
+                        text: 's'
+                        size_hint: .35, None
+                        height: "30dp"
+                        halign:"center"
+
+
+                MDBoxLayout:
+
 
         
