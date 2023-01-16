@@ -20,7 +20,6 @@ class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
-        self.theme_cls.primary_palette = "Orange"
 
     def get_string_time(self, dt):
         self.increment_milliseconds()
@@ -133,6 +132,9 @@ class MainApp(MDApp):
 
     def on_start(self):
         self.stopwatch_time = "00:00:00"
+
+    def add_timer(self):
+        pass
 
 
 MainApp().run()

@@ -1,6 +1,5 @@
 MDScreen:
     MDBottomNavigation:
-        #panel_color: "#eeeaea"
         selected_color_background: "orange"
         text_color_active: "lightgrey"
 
@@ -64,8 +63,13 @@ MDScreen:
             text: 'Timer'
             icon: 'timer-sand'
 
+
             MDBoxLayout:
                 orientation: 'vertical'
+
+                MDTopAppBar:
+                    right_action_items: [["plus", lambda x: app.add_timer()]]
+                    md_bg_color: app.theme_cls.bg_dark
 
                 MDGridLayout:
                     cols: 6
@@ -133,7 +137,25 @@ MDScreen:
                         halign:"center"
 
 
-                MDBoxLayout:
+                MDList:
+                    id: timer_list
+
+                
+                MDFloatLayout:
+                    size_hint: 1, None
+
+
+                    MDIconButton:
+                        icon: 'undo-variant'
+                        pos_hint: {'center_x': .2}
+                        disabled: True
+
+
+                    MDIconButton:
+                        icon: 'play'
+                        pos_hint: {'center_x': .5}
+
+
 
 
         
