@@ -1,3 +1,4 @@
+from datetime import timedelta
 from kivymd.app import MDApp
 from kivy.properties import NumericProperty, StringProperty
 from kivy.clock import Clock
@@ -11,6 +12,11 @@ class MainApp(MDApp):
     milliseconds = NumericProperty()
     seconds = NumericProperty()
     minutes = NumericProperty()
+    last_lap_time = {
+        'minutes': 0,
+        'seconds': 0,
+        'milliseconds': 0
+    }
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
@@ -75,6 +81,10 @@ class MainApp(MDApp):
         self.root.ids['reset_btn'].disabled = True
         self.root.ids['record_lap_btn'].disabled = True
 
+        self.last_lap_time['minutes'] = 0
+        self.last_lap_time['seconds'] = 0
+        self.last_lap_time['milliseconds'] = 0
+
     def time_lap(self):
         lap_time = f"Count {self.count}: " + self.stopwatch_time
         list_item = TwoLineIconListItem(
@@ -82,7 +92,7 @@ class MainApp(MDApp):
                 icon="av-timer"
             ),
             text=lap_time,
-            secondary_text="00:04:43",
+            secondary_text=self.calculate_time_difference(),
             theme_text_color="Custom",
             text_color=(1, 1, 1, 1),
             secondary_theme_text_color="Custom",
@@ -92,6 +102,32 @@ class MainApp(MDApp):
         self.root.ids['count_list'].add_widget(list_item, index=-1)
 
         self.count += 1
+
+    def calculate_time_difference(self):
+        """Calculate the time difference between the laps records
+        """
+        lap_time = timedelta(
+            minutes=self.minutes,
+            seconds=self.seconds,
+            milliseconds=self.milliseconds
+        ) - timedelta(
+            minutes=self.last_lap_time['minutes'], seconds=self.last_lap_time['seconds'], milliseconds=self.last_lap_time['milliseconds'])
+
+        lap_time = str(lap_time)[2:-3]
+
+        lap_time = lap_time.split(':')
+
+        lap_time = [i.split('.') for i in lap_time]
+
+        minutes = int(lap_time[0][0])
+        seconds = int(lap_time[1][0])
+        milliseconds = int(lap_time[1][1])
+
+        self.last_lap_time['minutes'] = self.minutes
+        self.last_lap_time['seconds'] = self.seconds
+        self.last_lap_time['milliseconds'] = self.milliseconds
+
+        return f"{minutes}:{seconds}:{milliseconds}"
 
     def on_start(self):
         self.stopwatch_time = "00:00:00"
