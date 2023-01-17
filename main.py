@@ -4,6 +4,14 @@ from kivy.properties import NumericProperty, StringProperty
 from kivy.clock import Clock
 from kivymd.uix.list import TwoLineIconListItem, IconLeftWidget
 
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.button import MDFlatButton
+
+
+class Content(MDBoxLayout):
+    pass
+
 
 class MainApp(MDApp):
     count = 1
@@ -17,6 +25,8 @@ class MainApp(MDApp):
         'seconds': 0,
         'milliseconds': 0
     }
+
+    dialog = None
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
@@ -132,6 +142,15 @@ class MainApp(MDApp):
 
     def on_start(self):
         self.stopwatch_time = "00:00:00"
+
+    def show_add_timer_dialog(self):
+        if not self.dialog:
+            self.dialog = MDDialog(
+                title="Add Timer",
+                type="custom",
+                content_cls=Content(),
+            )
+        self.dialog.open()
 
     def add_timer(self):
         pass

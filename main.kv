@@ -68,7 +68,7 @@ MDScreen:
                 orientation: 'vertical'
 
                 MDTopAppBar:
-                    right_action_items: [["plus", lambda x: app.add_timer()]]
+                    right_action_items: [["plus", lambda x: app.show_add_timer_dialog()]]
                     md_bg_color: app.theme_cls.bg_dark
 
                 MDGridLayout:
@@ -157,5 +157,85 @@ MDScreen:
 
 
 
+
+<Content>
+    orientation: 'vertical'
+    spacing: '10dp'
+    size_hint_y: None
+    height: '140dp'
+
+    MDGridLayout:
+        cols: 6
+
+        MDTextFieldRect:
+            id: d_timer_hour
+            size_hint: None, None
+            height: "32dp"
+            width: "32dp"
+            multiline: False
+            max_text_length: 2
+            input_filter: "int"    
+            font_size: "16dp"
+            text: "00"
+            halign:"center"
+
+        MDLabel:
+            text: 'h'
+            size_hint: .35, None
+            height: "30dp"
+            halign:"center"
+
+        MDTextFieldRect:
+            id: d_timer_minute
+            size_hint: None, None
+            height: "32dp"
+            width: "32dp"
+            multiline: False
+            max_text_length: 2
+            input_filter: "int"    
+            font_size: "16dp"
+            text: "00"
+            halign:"center"
+
+        MDLabel:
+            text: 'm'
+            size_hint: .35, None
+            height: "30dp"
+            halign:"center"
+
+
+        MDTextFieldRect:
+            id: d_timer_second
+            size_hint: None, None
+            height: "32dp"
+            width: "32dp"
+            multiline: False
+            max_text_length: 2
+            input_filter: "int"    
+            font_size: "16dp"
+            text: "00"
+            halign:"center"
+
+        MDLabel:
+            text: 's'
+            size_hint: .35, None
+            height: "30dp"
+            halign:"center"
+
+    MDTextField:
+        hint_text: "Timer Name"
+        id: timer_name
+
+
+    MDBoxLayout:
+        orientation: 'horizontal'
+        spacing: "10dp"
+
+
+        MDRaisedButton:
+            text: "Save"
+
+        MDFlatButton:
+            text: "Cancel"
 
         
