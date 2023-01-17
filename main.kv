@@ -162,7 +162,7 @@ MDScreen:
     orientation: 'vertical'
     spacing: '10dp'
     size_hint_y: None
-    height: '140dp'
+    height: '280dp'
 
     MDGridLayout:
         cols: 6
@@ -226,6 +226,42 @@ MDScreen:
         hint_text: "Timer Name"
         id: timer_name
 
+    MDGridLayout:
+        id: chip_box
+        cols: 3
+        adaptive_size: True
+        spacing: "8dp"
+
+        MDChip:
+            text: "Timer"
+            icon_left: 'timer-sand'
+            on_active: if self.active: root.removes_marks_all_chips(self)
+
+        MDChip:
+            text: "Meeting"
+            icon_left: 'presentation'
+            on_active: if self.active: root.removes_marks_all_chips(self)
+
+        MDChip:
+            text: "Sleep"
+            icon_left: 'moon-waning-crescent'
+            on_active: if self.active: root.removes_marks_all_chips(self)
+
+        MDChip:
+            text: "Exercise"
+            icon_left: 'dumbbell'
+            on_active: if self.active: root.removes_marks_all_chips(self)
+
+        MDChip:
+            text: "Mindfulness"
+            icon_left: 'bullseye-arrow'
+            on_active: if self.active: root.removes_marks_all_chips(self)
+
+        MDChip:
+            text: "Work"
+            icon_left: 'briefcase'
+            on_active: if self.active: root.removes_marks_all_chips(self)
+
 
     MDBoxLayout:
         orientation: 'horizontal'
@@ -234,8 +270,10 @@ MDScreen:
 
         MDRaisedButton:
             text: "Save"
+            on_release: (app.add_timer(timer_name.text, d_timer_hour.text, d_timer_minute.text, d_timer_second.text, chip_box), root.reset_timer_dialog())
 
         MDFlatButton:
             text: "Cancel"
+            on_release: app.close_dialog()
 
         

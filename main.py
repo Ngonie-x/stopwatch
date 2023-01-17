@@ -10,7 +10,23 @@ from kivymd.uix.button import MDFlatButton
 
 
 class Content(MDBoxLayout):
-    pass
+    def removes_marks_all_chips(self, selected_instance_chip):
+        for instance_chip in self.ids.chip_box.children:
+            if instance_chip != selected_instance_chip:
+                instance_chip.active = False
+
+    def reset_timer_dialog(self):
+        self.ids['d_timer_hour'].text = "00"
+        self.ids['d_timer_minute'].text = "00"
+        self.ids['d_timer_second'].text = "00"
+
+        self.ids['timer_name'].text = ""
+
+        chip_box = self.ids['chip_box']
+
+        for child in chip_box.children:
+            if child.active == True:
+                child.active = False
 
 
 class MainApp(MDApp):
@@ -24,6 +40,15 @@ class MainApp(MDApp):
         'minutes': 0,
         'seconds': 0,
         'milliseconds': 0
+    }
+
+    timer_chips = {
+        'Timer': 'timer-sand',
+        'Meeting': 'presentation',
+        'Sleep': 'moon-waning-crescent',
+        'Exercise': 'dumbbell',
+        'Mindfulness': 'bullseye-arrow',
+        'Work': 'briefcase',
     }
 
     dialog = None
@@ -152,8 +177,33 @@ class MainApp(MDApp):
             )
         self.dialog.open()
 
-    def add_timer(self):
-        pass
+    def add_timer(self, title, hours, minutes, seconds, chip_box):
+        timer_list = self.root.ids['timer_list']
+
+        for child in chip_box.children:
+            if child.active == True:
+                icon = self.timer_chips[child.text]
+
+        list_item = TwoLineIconListItem(
+            IconLeftWidget(
+                icon=icon
+            ),
+            text=title,
+            secondary_text=f"{hours}:{minutes}:{seconds}",
+            theme_text_color="Custom",
+            text_color=(1, 1, 1, 1),
+            secondary_theme_text_color="Custom",
+            secondary_text_color=(1, 1, 1, 1)
+        )
+
+        timer_list.add_widget(
+            list_item
+        )
+
+        self.dialog.dismiss()
+
+    def close_dialog(self):
+        self.dialog.dismiss()
 
 
 MainApp().run()
