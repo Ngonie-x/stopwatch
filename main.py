@@ -193,7 +193,8 @@ class MainApp(MDApp):
             theme_text_color="Custom",
             text_color=(1, 1, 1, 1),
             secondary_theme_text_color="Custom",
-            secondary_text_color=(1, 1, 1, 1)
+            secondary_text_color=(1, 1, 1, 1),
+            on_release=lambda x: self.set_timer(hours, minutes, seconds),
         )
 
         timer_list.add_widget(
@@ -204,6 +205,17 @@ class MainApp(MDApp):
 
     def close_dialog(self):
         self.dialog.dismiss()
+
+    def set_timer(self, hours, minutes, seconds):
+        """Set the timer when the list item is clicked
+
+        Args:
+            list_item (widget): list item widget
+        """
+
+        self.root.ids['timer_hour'].text = hours
+        self.root.ids['timer_minute'].text = minutes
+        self.root.ids['timer_second'].text = seconds
 
 
 MainApp().run()

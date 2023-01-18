@@ -73,11 +73,12 @@ MDScreen:
 
                 MDGridLayout:
                     cols: 6
-                    size_hint_y: 1
+                    size_hint_y: .4
                     padding: 20
                     spacing: 15
 
                     MDTextFieldRect:
+                        id: timer_hour
                         size_hint: None, None
                         height: "80dp"
                         width: "80dp"
@@ -96,6 +97,7 @@ MDScreen:
 
 
                     MDTextFieldRect:
+                        id: timer_minute
                         size_hint: None, None
                         height: "80dp"
                         width: "80dp"
@@ -117,6 +119,7 @@ MDScreen:
 
 
                     MDTextFieldRect:
+                        id: timer_second
                         size_hint: None, None
                         height: "80dp"
                         width: "80dp"
@@ -136,13 +139,13 @@ MDScreen:
                         height: "30dp"
                         halign:"center"
 
-
-                MDList:
-                    id: timer_list
+                MDScrollView:
+                    MDList:
+                        id: timer_list
 
                 
                 MDFloatLayout:
-                    size_hint: 1, None
+                    size_hint: 1, .3
 
 
                     MDIconButton:
@@ -274,6 +277,6 @@ MDScreen:
 
         MDFlatButton:
             text: "Cancel"
-            on_release: app.close_dialog()
+            on_release: (app.close_dialog(), root.reset_timer_dialog())
 
         
