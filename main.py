@@ -29,18 +29,34 @@ class Content(MDBoxLayout):
                 child.active = False
 
 
+class TimerContent(MDBoxLayout):
+    """"""
+
+
 class MainApp(MDApp):
+
+    # Stop watch
     count = 1
+
     watch_started = False
+
     stopwatch_time = StringProperty()
+
     milliseconds = NumericProperty()
+
     seconds = NumericProperty()
+
     minutes = NumericProperty()
+
     last_lap_time = {
         'minutes': 0,
         'seconds': 0,
         'milliseconds': 0
     }
+
+    # timer
+
+    timer_started = False
 
     timer_chips = {
         'Timer': 'timer-sand',
@@ -51,10 +67,22 @@ class MainApp(MDApp):
         'Work': 'briefcase',
     }
 
+    timer_time = StringProperty()
+
+    timer_seconds = NumericProperty()
+
+    timer_minutes = NumericProperty()
+
+    timer_hours = NumericProperty()
+
+    timer_dialog = None
+
     dialog = None
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
+
+    # STOP WATCH
 
     def get_string_time(self, dt):
         self.increment_milliseconds()
@@ -167,15 +195,9 @@ class MainApp(MDApp):
 
     def on_start(self):
         self.stopwatch_time = "00:00:00"
+        self.timer_time = "00:00:00"
 
-    def show_add_timer_dialog(self):
-        if not self.dialog:
-            self.dialog = MDDialog(
-                title="Add Timer",
-                type="custom",
-                content_cls=Content(),
-            )
-        self.dialog.open()
+    # TIMER
 
     def add_timer(self, title, hours, minutes, seconds, chip_box):
         timer_list = self.root.ids['timer_list']
@@ -216,6 +238,117 @@ class MainApp(MDApp):
         self.root.ids['timer_hour'].text = hours
         self.root.ids['timer_minute'].text = minutes
         self.root.ids['timer_second'].text = seconds
+
+    def start_timer(self):
+        self.timer_hours = int(self.root.ids['timer_hour'].text)
+        self.timer_minutes = int(self.root.ids['timer_minute'].text)
+        self.timer_seconds = int(self.root.ids['timer_second'].text)
+
+        self.root.current = 'timer_screen'
+
+        if len(str(self.timer_seconds)) < 2:
+            seconds = '0' + str(self.timer_seconds)
+
+        if len(str(self.timer_minutes)) < 2:
+            minutes = '0' + str(self.timer_minutes)
+
+        if len(str(self.timer_hours)) < 2:
+            hours = '0' + str(self.timer_hours)
+
+        self.timer_time = f"{hours}:{minutes}:{seconds}"
+
+        self.start_or_stop_timer()
+
+    def back_to_main_screen(self):
+        self.root.current = 'main_screen'
+
+    def decrement_seconds(self):
+
+        # Stop the timer in the case that time is up
+        if self.timer_seconds == 0 and self.timer_minutes == 0 and self.timer_hours == 0:
+            self.start_or_stop_timer()
+
+        elif self.timer_seconds == 0 and self.timer_minutes >= 1:
+            self.decrement_minutes()
+            self.timer_seconds = 60
+            self.timer_seconds -= 1
+
+        elif self.timer_seconds > 0:
+            self.timer_seconds -= 1
+
+    def decrement_minutes(self):
+
+        if self.timer_minutes == 0 and self.timer_hours != 0:
+            self.decrement_hours()
+            self.timer_minutes = 60
+
+        if self.timer_minutes != 0:
+            self.timer_minutes -= 1
+
+    def decrement_hours(self):
+        if self.timer_hours != 0:
+            self.timer_hours -= 1
+
+    def show_add_timer_dialog(self):
+        if not self.dialog:
+            self.dialog = MDDialog(
+                title="Add Timer",
+                type="custom",
+                content_cls=Content(),
+            )
+        self.dialog.open()
+
+    def start_or_stop_timer(self):
+
+        if self.timer_started:
+            self.timer_started = False
+            self.root.ids['timer_pause_btn'].icon = 'play'
+            self.root.ids['timer_reset_btn'].disabled = False
+            Clock.unschedule(self.get_string_time_timer)
+        else:
+            self.timer_started = True
+            self.root.ids['timer_pause_btn'].icon = 'pause'
+            self.root.ids['timer_reset_btn'].disabled = True
+            Clock.schedule_interval(self.get_string_time_timer, 1)
+
+    def get_string_time_timer(self, dt):
+        self.decrement_seconds()
+
+        seconds = str(int(self.timer_seconds))
+        minutes = str(int(self.timer_minutes))
+        hours = str(int(self.timer_hours))
+
+        if len(seconds) < 2:
+            seconds = '0' + seconds
+
+        if len(minutes) < 2:
+            minutes = '0' + minutes
+
+        if len(hours) < 2:
+            hours = '0' + hours
+
+        self.timer_time = hours + ":" + minutes + ":" + seconds
+
+    def reset_timer(self):
+
+        hours = self.root.ids['timer_hour'].text
+        minutes = self.root.ids['timer_minute'].text
+        seconds = self.root.ids['timer_second'].text
+
+        self.timer_hours = hours
+        self.timer_minutes = minutes
+        self.timer_seconds = seconds
+
+        if len(seconds) < 2:
+            seconds = '0' + seconds
+
+        if len(minutes) < 2:
+            minutes = '0' + minutes
+
+        if len(hours) < 2:
+            hours = '0' + hours
+
+        self.timer_time = hours + ":" + minutes + ":" + seconds
 
 
 MainApp().run()

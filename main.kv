@@ -1,162 +1,205 @@
-MDScreen:
-    MDBottomNavigation:
-        selected_color_background: "orange"
-        text_color_active: "lightgrey"
+MDScreenManager:
+    MDScreen:
+        name: 'main_screen'
 
-        MDBottomNavigationItem:
-            name: 'screen 1'
-            text: 'Stop Watch'
-            icon: 'timer'
+        MDBottomNavigation:
+            selected_color_background: "orange"
+            text_color_active: "lightgrey"
 
-            MDBoxLayout:
-                orientation: 'vertical'
+            MDBottomNavigationItem:
+                name: 'screen 1'
+                text: 'Stop Watch'
+                icon: 'timer'
 
-
-                MDLabel:
-                    id: stopwatch_lbl
-                    text: app.stopwatch_time
-                    halign: 'center'
-                    theme_text_color: "Custom"
-                    text_color: 1, 1, 1, 1
-                    font_style: 'H2'
-
-                MDScrollView:
-                    MDList:
-                        id: count_list
+                MDBoxLayout:
+                    orientation: 'vertical'
 
 
+                    MDLabel:
+                        id: stopwatch_lbl
+                        text: app.stopwatch_time
+                        halign: 'center'
+                        theme_text_color: "Custom"
+                        text_color: 1, 1, 1, 1
+                        font_style: 'H2'
 
-                MDFloatLayout:
+                    MDScrollView:
+                        MDList:
+                            id: count_list
+
+
+
+                    MDFloatLayout:
+                        pos_hint: {'center_x': .5}
+                        size_hint_y: .3
+                        size_hint_x: .5
+                        spacing: 50
+
+
+                        MDIconButton:
+                            id: reset_btn
+                            icon: 'undo-variant'
+                            pos_hint: {'center_x': .2}
+                            on_press: app.reset_stopwatch()
+                            disabled: True
+
+
+                        MDIconButton:
+                            id: play_pause_btn
+                            icon: 'play'
+                            pos_hint: {'center_x': .5}
+                            on_press: app.start_or_stop_stopwatch()
+
+
+                        MDIconButton:
+                            id: record_lap_btn
+                            icon: 'timelapse'
+                            pos_hint: {'center_x': .8}
+                            on_press: app.time_lap()
+                            disabled: True
+
+
+
+
+            MDBottomNavigationItem:
+                name: 'screen 2'
+                text: 'Timer'
+                icon: 'timer-sand'
+
+
+                MDBoxLayout:
+                    orientation: 'vertical'
+
+                    MDTopAppBar:
+                        right_action_items: [["plus", lambda x: app.show_add_timer_dialog()]]
+                        md_bg_color: app.theme_cls.bg_dark
+
+                    MDGridLayout:
+                        cols: 6
+                        size_hint_y: .4
+                        padding: 20
+                        spacing: 15
+
+                        MDTextFieldRect:
+                            id: timer_hour
+                            size_hint: None, None
+                            height: "80dp"
+                            width: "80dp"
+                            multiline: False
+                            max_text_length: 2
+                            input_filter: "int"    
+                            font_size: "50dp"
+                            text: "00"
+                            halign:"center"
+
+                        MDLabel:
+                            text: 'h'
+                            size_hint: .35, None
+                            height: "30dp"
+                            halign:"center"
+
+
+                        MDTextFieldRect:
+                            id: timer_minute
+                            size_hint: None, None
+                            height: "80dp"
+                            width: "80dp"
+                            multiline: False
+                            max_text_length: 2
+                            input_filter: "int"
+                            font_size: "50dp"
+                            text: "00"
+                            halign:"center"
+
+
+
+
+                        MDLabel:
+                            text: 'm'
+                            size_hint: .35, None
+                            height: "30dp"
+                            halign:"center"
+
+
+                        MDTextFieldRect:
+                            id: timer_second
+                            size_hint: None, None
+                            height: "80dp"
+                            width: "80dp"
+                            multiline: False
+                            max_text_length: 2
+                            input_filter: "int"
+                            font_size: "50dp"
+                            text: "00"
+                            halign:"center"
+
+
+                            
+
+                        MDLabel:
+                            text: 's'
+                            size_hint: .35, None
+                            height: "30dp"
+                            halign:"center"
+
+                    MDScrollView:
+                        MDList:
+                            id: timer_list
+
+                    
+                    MDFloatLayout:
+                        size_hint: 1, .3
+
+
+                        MDIconButton:
+                            icon: 'undo-variant'
+                            pos_hint: {'center_x': .2}
+                            disabled: True
+
+
+                        MDIconButton:
+                            icon: 'play'
+                            pos_hint: {'center_x': .5}
+                            on_release: app.start_timer()
+
+    MDScreen:
+        name: 'timer_screen'
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: '10dp'
+
+            MDTopAppBar:
+                left_action_items: [["keyboard-backspace", lambda x: app.back_to_main_screen()]]
+                md_bg_color: app.theme_cls.bg_dark
+
+            MDLabel:
+                id: timer_lbl
+                text: app.timer_time
+                halign: 'center'
+                theme_text_color: "Custom"
+                text_color: 1, 1, 1, 1
+                font_style: 'H2'
+
+            MDFloatLayout:
+                pos_hint: {'center_x': .5}
+                size_hint_y: .3
+                size_hint_x: .5
+                spacing: 50
+
+                MDIconButton:
+                    id: timer_reset_btn
+                    icon: 'undo-variant'
+                    disabled: True
+                    pos_hint: {'center_x': .2}
+                    on_release: app.reset_timer()
+
+
+                MDIconButton:
+                    id: timer_pause_btn
+                    icon: 'pause'
                     pos_hint: {'center_x': .5}
-                    size_hint_y: .3
-                    size_hint_x: .5
-                    spacing: 50
-
-
-                    MDIconButton:
-                        id: reset_btn
-                        icon: 'undo-variant'
-                        pos_hint: {'center_x': .2}
-                        on_press: app.reset_stopwatch()
-                        disabled: True
-
-
-                    MDIconButton:
-                        id: play_pause_btn
-                        icon: 'play'
-                        pos_hint: {'center_x': .5}
-                        on_press: app.start_or_stop_stopwatch()
-
-
-                    MDIconButton:
-                        id: record_lap_btn
-                        icon: 'timelapse'
-                        pos_hint: {'center_x': .8}
-                        on_press: app.time_lap()
-                        disabled: True
-
-
-
-
-        MDBottomNavigationItem:
-            name: 'screen 2'
-            text: 'Timer'
-            icon: 'timer-sand'
-
-
-            MDBoxLayout:
-                orientation: 'vertical'
-
-                MDTopAppBar:
-                    right_action_items: [["plus", lambda x: app.show_add_timer_dialog()]]
-                    md_bg_color: app.theme_cls.bg_dark
-
-                MDGridLayout:
-                    cols: 6
-                    size_hint_y: .4
-                    padding: 20
-                    spacing: 15
-
-                    MDTextFieldRect:
-                        id: timer_hour
-                        size_hint: None, None
-                        height: "80dp"
-                        width: "80dp"
-                        multiline: False
-                        max_text_length: 2
-                        input_filter: "int"    
-                        font_size: "50dp"
-                        text: "00"
-                        halign:"center"
-
-                    MDLabel:
-                        text: 'h'
-                        size_hint: .35, None
-                        height: "30dp"
-                        halign:"center"
-
-
-                    MDTextFieldRect:
-                        id: timer_minute
-                        size_hint: None, None
-                        height: "80dp"
-                        width: "80dp"
-                        multiline: False
-                        max_text_length: 2
-                        input_filter: "int"
-                        font_size: "50dp"
-                        text: "00"
-                        halign:"center"
-
-
-
-
-                    MDLabel:
-                        text: 'm'
-                        size_hint: .35, None
-                        height: "30dp"
-                        halign:"center"
-
-
-                    MDTextFieldRect:
-                        id: timer_second
-                        size_hint: None, None
-                        height: "80dp"
-                        width: "80dp"
-                        multiline: False
-                        max_text_length: 2
-                        input_filter: "int"
-                        font_size: "50dp"
-                        text: "00"
-                        halign:"center"
-
-
-                        
-
-                    MDLabel:
-                        text: 's'
-                        size_hint: .35, None
-                        height: "30dp"
-                        halign:"center"
-
-                MDScrollView:
-                    MDList:
-                        id: timer_list
-
-                
-                MDFloatLayout:
-                    size_hint: 1, .3
-
-
-                    MDIconButton:
-                        icon: 'undo-variant'
-                        pos_hint: {'center_x': .2}
-                        disabled: True
-
-
-                    MDIconButton:
-                        icon: 'play'
-                        pos_hint: {'center_x': .5}
+                    on_release: app.start_or_stop_timer()
 
 
 
@@ -279,4 +322,7 @@ MDScreen:
             text: "Cancel"
             on_release: (app.close_dialog(), root.reset_timer_dialog())
 
-        
+
+    
+
+
