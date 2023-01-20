@@ -1,12 +1,13 @@
-from datetime import timedelta
-from kivymd.app import MDApp
-from kivy.properties import NumericProperty, StringProperty
-from kivy.clock import Clock
-from kivymd.uix.list import TwoLineIconListItem, IconLeftWidget
-
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.dialog import MDDialog
 from kivymd.uix.button import MDFlatButton
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.uix.list import TwoLineIconListItem, IconLeftWidget
+from kivy.clock import Clock
+from kivy.properties import NumericProperty, StringProperty
+from kivymd.app import MDApp
+from datetime import timedelta
+import kivy
+kivy.require('2.1.0')
 
 
 class Content(MDBoxLayout):
