@@ -1,4 +1,3 @@
-from kivymd.uix.button import MDFlatButton
 from kivymd.uix.dialog import MDDialog
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivymd.uix.list import TwoLineIconListItem, IconLeftWidget
@@ -352,4 +351,6 @@ class MainApp(MDApp):
         self.timer_time = hours + ":" + minutes + ":" + seconds
 
 
-MainApp().run()
+if __name__ == '__main__':
+    app = MainApp()
+    app.run()
