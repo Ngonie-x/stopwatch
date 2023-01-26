@@ -81,6 +81,8 @@ class MainApp(MDApp):
 
     def build(self):
         self.theme_cls.theme_style = "Dark"
+        self.theme_cls.primary_palette = "Gray"
+        self.theme_cls.primary_hue = "200"
 
     # STOP WATCH
 
