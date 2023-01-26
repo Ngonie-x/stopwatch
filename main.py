@@ -113,10 +113,10 @@ class MainApp(MDApp):
             self.watch_started = True
             self.root.ids['play_pause_btn'].icon = 'pause'
             self.root.ids['record_lap_btn'].disabled = False
-            Clock.schedule_interval(self.get_string_time, 0.01)
+            Clock.schedule_interval(self.get_string_time, 0.1)
 
     def increment_milliseconds(self):
-        self.milliseconds += 1
+        self.milliseconds += 10
 
         if self.milliseconds == 100:
             self.increment_seconds()
