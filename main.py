@@ -246,16 +246,20 @@ class MainApp(MDApp):
         self.timer_minutes = int(self.root.ids['timer_minute'].text)
         self.timer_seconds = int(self.root.ids['timer_second'].text)
 
+        seconds = self.timer_seconds
+        minutes = self.timer_minutes
+        hours = self.timer_hours
+
         self.root.current = 'timer_screen'
 
-        if len(str(self.timer_seconds)) < 2:
-            seconds = '0' + str(self.timer_seconds)
+        if len(str(seconds)) < 2:
+            seconds = '0' + str(seconds)
 
-        if len(str(self.timer_minutes)) < 2:
-            minutes = '0' + str(self.timer_minutes)
+        if len(str(minutes)) < 2:
+            minutes = '0' + str(minutes)
 
-        if len(str(self.timer_hours)) < 2:
-            hours = '0' + str(self.timer_hours)
+        if len(str(hours)) < 2:
+            hours = '0' + str(hours)
 
         self.timer_time = f"{hours}:{minutes}:{seconds}"
 
