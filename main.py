@@ -356,6 +356,17 @@ class MainApp(MDApp):
 
         self.timer_time = hours + ":" + minutes + ":" + seconds
 
+    def clear_timer(self):
+        self.root.ids['timer_hour'].text = '00'
+        self.root.ids['timer_minute'].text = '00'
+        self.root.ids['timer_second'].text = '00'
+
+        self.timer_hours = 0
+        self.timer_minutes = 0
+        self.timer_seconds = 0
+
+        self.timer_time = '00' + ":" + '00' + ":" + '00'
+
 
 if __name__ == '__main__':
     app = MainApp()
