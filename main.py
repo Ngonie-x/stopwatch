@@ -177,7 +177,10 @@ class MainApp(MDApp):
             seconds=self.seconds,
             milliseconds=self.milliseconds
         ) - timedelta(
-            minutes=self.last_lap_time['minutes'], seconds=self.last_lap_time['seconds'], milliseconds=self.last_lap_time['milliseconds'])
+            minutes=self.last_lap_time['minutes'],
+            seconds=self.last_lap_time['seconds'],
+            milliseconds=self.last_lap_time['milliseconds']
+        )
 
         lap_time = str(lap_time)[2:-3]
 
