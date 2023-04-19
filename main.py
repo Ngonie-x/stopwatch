@@ -94,28 +94,34 @@ class MainApp(MDApp):
         minutes = str(self.minutes)
 
         if len(milliseconds) < 2:
-            milliseconds = '0' + milliseconds
+            milliseconds = f'0{milliseconds}'
 
         if len(seconds) < 2:
-            seconds = '0' + seconds
+            seconds = f'0{seconds}'
 
         if len(minutes) < 2:
-            minutes = '0' + minutes
+            minutes = f'0{minutes}'
 
-        self.stopwatch_time = minutes + ":" + seconds + ":" + milliseconds
+        self.stopwatch_time = f"{minutes}:{seconds}:{milliseconds}"
 
     def start_or_stop_stopwatch(self):
         if self.watch_started:
-            self.watch_started = False
             self.root.ids['record_lap_btn'].disabled = True
-            self.root.ids['play_pause_btn'].icon = 'play'
-            self.root.ids['reset_btn'].disabled = False
+            self.set_start_stop_stopwatch(
+                False, 'play', 'reset_btn'
+            )
             Clock.unschedule(self.get_string_time)
         else:
-            self.watch_started = True
-            self.root.ids['play_pause_btn'].icon = 'pause'
-            self.root.ids['record_lap_btn'].disabled = False
+            self.set_start_stop_stopwatch(
+                True, 'pause', 'record_lap_btn'
+            )
             Clock.schedule_interval(self.get_string_time, 0.1)
+
+    # TODO Rename this here and in `start_or_stop_stopwatch`
+    def set_start_stop_stopwatch(self, arg0, arg1, arg2):
+        self.watch_started = arg0
+        self.root.ids['play_pause_btn'].icon = arg1
+        self.root.ids[arg2].disabled = False
 
     def increment_milliseconds(self):
         self.milliseconds += 10
@@ -152,7 +158,7 @@ class MainApp(MDApp):
         self.last_lap_time['milliseconds'] = 0
 
     def time_lap(self):
-        lap_time = f"Count {self.count}: " + self.stopwatch_time
+        lap_time = f"Count {self.count}: {self.stopwatch_time}"
         list_item = TwoLineIconListItem(
             IconLeftWidget(
                 icon="av-timer"
@@ -256,13 +262,13 @@ class MainApp(MDApp):
         self.root.current = 'timer_screen'
 
         if len(str(seconds)) < 2:
-            seconds = '0' + str(seconds)
+            seconds = f'0{seconds}'
 
         if len(str(minutes)) < 2:
-            minutes = '0' + str(minutes)
+            minutes = f'0{minutes}'
 
         if len(str(hours)) < 2:
-            hours = '0' + str(hours)
+            hours = f'0{hours}'
 
         self.timer_time = f"{hours}:{minutes}:{seconds}"
 
@@ -279,9 +285,7 @@ class MainApp(MDApp):
 
         elif self.timer_seconds == 0 and self.timer_minutes >= 1:
             self.decrement_minutes()
-            self.timer_seconds = 60
-            self.timer_seconds -= 1
-
+            self.timer_seconds = 60 - 1
         elif self.timer_seconds > 0:
             self.timer_seconds -= 1
 
@@ -310,15 +314,16 @@ class MainApp(MDApp):
     def start_or_stop_timer(self):
 
         if self.timer_started:
-            self.timer_started = False
-            self.root.ids['timer_pause_btn'].icon = 'play'
-            self.root.ids['timer_reset_btn'].disabled = False
+            self.set_start_or_stop_timer(False, 'play')
             Clock.unschedule(self.get_string_time_timer)
         else:
-            self.timer_started = True
-            self.root.ids['timer_pause_btn'].icon = 'pause'
-            self.root.ids['timer_reset_btn'].disabled = True
+            self.set_start_or_stop_timer(True, 'pause')
             Clock.schedule_interval(self.get_string_time_timer, 1)
+
+    def set_start_or_stop_timer(self, arg0, arg1):
+        self.timer_started = arg0
+        self.root.ids['timer_pause_btn'].icon = arg1
+        self.root.ids['timer_reset_btn'].disabled = arg0
 
     def get_string_time_timer(self, dt):
         self.decrement_seconds()
@@ -328,15 +333,15 @@ class MainApp(MDApp):
         hours = str(int(self.timer_hours))
 
         if len(seconds) < 2:
-            seconds = '0' + seconds
+            seconds = f'0{seconds}'
 
         if len(minutes) < 2:
-            minutes = '0' + minutes
+            minutes = f'0{minutes}'
 
         if len(hours) < 2:
-            hours = '0' + hours
+            hours = f'0{hours}'
 
-        self.timer_time = hours + ":" + minutes + ":" + seconds
+        self.timer_time = f"{hours}:{minutes}:{seconds}"
 
     def reset_timer(self):
 
@@ -349,15 +354,15 @@ class MainApp(MDApp):
         self.timer_seconds = seconds
 
         if len(seconds) < 2:
-            seconds = '0' + seconds
+            seconds = f'0{seconds}'
 
         if len(minutes) < 2:
-            minutes = '0' + minutes
+            minutes = f'0{minutes}'
 
         if len(hours) < 2:
-            hours = '0' + hours
+            hours = f'0{hours}'
 
-        self.timer_time = hours + ":" + minutes + ":" + seconds
+        self.timer_time = f"{hours}:{minutes}:{seconds}"
 
     def clear_timer(self):
         self.root.ids['timer_hour'].text = '00'
